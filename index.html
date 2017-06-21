@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>3D Engine</title>
+    <script src="Engine.js"></script>
+    <script src="Level.js"></script>
+    <script src="Player.js"></script>
+    <script src="Keyboard.js"></script>
+    <script src="Camera.js"></script>
+  </head>
+
+  <body onload="Engine.start();" style="margin: 0; padding: 0; width: 100%; height: 100%;">
+    <p align="center">
+      <canvas id="map" width="400" height="400" align="right"></canvas>
+    </p>
+
+    <p align="center">
+      <input id="debug" type="checkbox" checked="true">Debug Info</input>
+      <input id="fog" type="checkbox" checked="true">Distance Fog</input>
+      <input id="maxDistance" type="range" min="1" max="50" value="8" step="1"/>View Distance</input>
+      <input id="fov" type="range" min="0.1" max="3.1415" value="0.8" step="0.05"/>FOV</input>
+    </p>
+
+    <p align="center">
+      <canvas id="view" width="640" height="480" align="right"></canvas>
+    </p>
+  </body>
+
+</html>
