@@ -8,7 +8,7 @@ class Level {
       '...............',
       '....00000000...',
       '....0......0...',
-      '..3....1...0...',
+      '..2....1...0...',
       '....0......0...',
       '....000.0000...',
       '......0.0......',
@@ -30,8 +30,22 @@ class Level {
     this.block = {
       0: { r:   0, g:   0, b: 255 },
       1: { r:   0, g: 255, b:   0 },
-      3: { r: 255, g:   0, b:   0 },
+      2: { r: 255, g:   0, b:   0 },
     }
+
+    this.walls = {
+      0: new Wall('red'),
+      1: new Wall('green'),
+      2: new Wall('blue'),
+    }
+  }
+
+  wallAt(x, y) {
+    if (y < 0 || y >= this.map.length) return null;
+    const row = this.map[Math.floor(y)];
+
+    if (!row || x < 0 || x >= row.length) return null;
+    return this.walls[row.charAt(Math.floor(x))] || null;
   }
 
   blockColor(block, alpha = 1.0) {

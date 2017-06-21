@@ -18,14 +18,16 @@
   - Paredes com textura
   - Tornar janela full screen
   - Mouse look
-  - Edição simples do mapa com o mouse
+  - Edição do mapa com o mouse
+  - Salvar e carregar mapas
   - Skybox
   - Performance (algoritmo mais inteligente)
   - Sprites
   - Armas
-  - Implementar inimigos
-  - Som
-  - Parede móvel (áreas secretas)
+  - Inimigos
+  - Portas
+  - Paredes móveis (áreas secretas)
   - Olhar pra cima e pra baixo
+  - Efeitos especiais (chuva, relâmpago, ...)
   - Chão e teto texturizado
-  - Salvar e carregar mapas
+  - Som
