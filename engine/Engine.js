@@ -10,7 +10,7 @@ class Engine {
 
   static start() {
     const engine = new Engine();
-    engine.run(60);
+    engine.runAt(60);
   }
 
   constructor() {
@@ -42,26 +42,25 @@ class Engine {
   }
 
 
-  run(framesPerSecond) {
-    this.frameInterval = 1000 / framesPerSecond;
-
+  runAt(framesPerSecond) {
     this.frame = 0;
     this.elapsedTime = 0;
-    this.lastTimestamp = performance.now()
+    this.lastTimestamp = performance.now();
+    this.frameInterval = 1000 / framesPerSecond;
 
-    window.requestAnimationFrame(t => this.requestFrame(t));
+    window.requestAnimationFrame(t => this.gameLoop(t));
   }
 
 
-  requestFrame(timestamp) {
-    window.requestAnimationFrame(t => this.requestFrame(t));
+  gameLoop(timestamp) {
+    window.requestAnimationFrame(t => this.gameLoop(t));
 
     this.elapsedTime += timestamp - this.lastTimestamp;
 
     while (this.elapsedTime > this.frameInterval) {
-      this.elapsedTime -= this.frameInterval;
       this.frame++;
       this.update(this.frame)
+      this.elapsedTime -= this.frameInterval;
     }
 
     this.render(this.frame);
