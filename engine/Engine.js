@@ -18,7 +18,7 @@ class Engine {
     this.view = document.getElementById('view');
     this.level = new Level();
     this.player = new Player(this.level);
-    this.control = new Keyboard();
+    this.control = new Input();
     this.camera = new Camera(this.level);
 
     let element;

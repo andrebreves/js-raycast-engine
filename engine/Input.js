@@ -1,4 +1,4 @@
-class Keyboard {
+class Input {
 
   constructor() {
     this.state = { left: false, right: false, forward: false, backward: false, strafeLeft: false, strafeRight: false };
