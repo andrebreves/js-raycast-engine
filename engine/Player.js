@@ -59,22 +59,4 @@ class Player {
     else if (this.map.isEmpty(this.position.x, y)) Object.assign(this.position, { y });
   }
 
-  render(canvas) {
-    const p = Object.assign({}, this.position); // Avoid concurrent modifications
-    const context = canvas.getContext('2d');
-
-    context.save();
-    context.translate(p.x * this.map.SCALE, p.y * this.map.SCALE);
-    context.rotate(p.direction);
-    context.strokeStyle = 'red';
-    context.lineWidth = 2;
-    context.beginPath();
-    context.moveTo(-5, 0);
-    context.lineTo(5, 0);
-    context.lineTo(2, 4)
-    context.moveTo(5, 0);
-    context.lineTo(2, -4)
-    context.stroke();
-    context.restore();
-  }
 }

@@ -21,6 +21,9 @@ class Engine {
     this.control = new Input();
     this.camera = new Camera(this.level);
 
+    this.mapView = new MapView(this.canvas, this.level, this.player);
+    this.cameraView = new CameraView(this.view, this.level, this.camera);
+
     let element;
 
     element = document.getElementById('debug')
@@ -77,12 +80,12 @@ class Engine {
 
 
   render(frame) {
-    this.level.render(this.canvas);
-    this.player.render(this.canvas);
+    this.mapView.render(frame);
 
     this.camera.setPosition(this.player.position.x, this.player.position.y, this.player.position.direction);
-    this.camera.showRays = this.debug;
-    this.camera.render(frame, this.view, this.canvas);
+    // this.camera.showRays = this.debug;
+    //this.camera.render(frame, this.view, this.canvas);
+    this.cameraView.render(frame);
   }
 
 

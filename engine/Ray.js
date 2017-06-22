@@ -1,7 +1,6 @@
 class Ray {
 
-  static cast(level, origin, direction, maxDistance) {
-    const step = 0.01;
+  static cast(level, origin, direction, maxDistance = 10, step = 0.01) {
     const xStep = Math.cos(direction) * step;
     const yStep = Math.sin(direction) * step;
 
@@ -11,19 +10,21 @@ class Ray {
 
     for (distance = 0; distance < maxDistance; distance += step) {
       wall = level.wallAt(x, y);
-      if (wall !== '.') break;
+      if (wall) return new Ray(level, origin, direction, { x, y }, distance , wall);
       x += xStep;
       y += yStep;
     }
 
-    if (block !== '.' && block !== ' ') return new Ray(origin, direction, { x, y, wall, distance });
-    else return new Ray(origin, direction);
+    return new Ray(level, origin, direction, { x, y }, distance - step, null);
   }
 
-  constructor(origin, direction, hit) {
+  constructor(level, origin, direction, end, distance, hit) {
+    this.level = level;
     this.origin = origin;
     this.direction = direction;
-    if (hit) this.hit = hit;
+    this.end = end;
+    this.distance = distance;
+    this.hit = hit;
   }
 
 }
