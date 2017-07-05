@@ -46,7 +46,7 @@ class MapView {
     this.context.save();
 
     this.context.translate(this.player.position.x * this.scale, this.player.position.y * this.scale);
-    this.context.rotate(this.player.position.direction);
+    this.context.rotate(-this.player.position.direction);
 
     this.context.strokeStyle = 'red';
     this.context.lineWidth = 2;
@@ -54,17 +54,12 @@ class MapView {
     this.context.beginPath();
     this.context.moveTo(-5,  0);
     this.context.lineTo( 5,  0);
-    this.context.lineTo( 2,  4);
+    this.context.lineTo( 2,  -4);
     this.context.moveTo( 5,  0);
-    this.context.lineTo( 2, -4);
+    this.context.lineTo( 2, 4);
     this.context.stroke();
 
     this.context.restore();
-  }
-
-
-  renderRays(frame, rays) {
-    rays.forEach(ray => this.renderRay(frame, ray));
   }
 
 

@@ -2,6 +2,7 @@
 // Referência:
 // https://github.com/hunterloftis/playfuljs-demos/blob/gh-pages/raycaster/index.html
 // http://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/
+// http://lodev.org/cgtutor/raycasting.html
 // https://developer.mozilla.org/en-US/docs/Games
 // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
 // http://codeincomplete.com/posts/javascript-game-foundations-the-game-loop/
@@ -85,6 +86,7 @@ class Engine {
     this.camera.setPosition(this.player.position.x, this.player.position.y, this.player.position.direction);
     // this.camera.showRays = this.debug;
     //this.camera.render(frame, this.view, this.canvas);
+    // this.cameraView.forEachRay = ray => this.mapView.renderRay(frame, ray);
     this.cameraView.render(frame);
   }
 
@@ -103,7 +105,13 @@ class Engine {
 
     context.fillStyle = 'white';
     context.font = '20px Monospace';
-    context.fillText('FPS: ' + this.debugInfo.fps.toFixed(1) + '/Frame: ' + this.frame, 10, 20);
+    let info = '';
+    info += `FPS: ${this.debugInfo.fps.toFixed(1)}`;
+    info += `/Frame: ${this.frame}`;
+    info += `/X: ${this.player.position.x.toFixed(2)}`;
+    info += `/Y: ${this.player.position.y.toFixed(2)}`;
+    info += `/D: ${(this.player.position.direction * 180 / Math.PI).toFixed(1)}`;
+    context.fillText(info, 10, 20);
   }
 
 }
