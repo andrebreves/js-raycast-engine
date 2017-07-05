@@ -11,7 +11,7 @@ class Player {
 
   moveForward() {
     const x = this.position.x + Math.cos(this.position.direction) * this.linearVelocity;
-    const y = this.position.y - Math.sin(this.position.direction) * this.linearVelocity;
+    const y = this.position.y + Math.sin(this.position.direction) * this.linearVelocity;
 
     if (this.level.isEmpty(x, y)) Object.assign(this.position, { x, y });
     else if (this.level.isEmpty(x, this.position.y)) Object.assign(this.position, { x });
@@ -20,7 +20,7 @@ class Player {
 
   moveBackward() {
     const x = this.position.x - Math.cos(this.position.direction) * this.linearVelocity;
-    const y = this.position.y + Math.sin(this.position.direction) * this.linearVelocity;
+    const y = this.position.y - Math.sin(this.position.direction) * this.linearVelocity;
 
     if (this.level.isEmpty(x, y)) Object.assign(this.position, { x, y });
     else if (this.level.isEmpty(x, this.position.y)) Object.assign(this.position, { x });
@@ -40,7 +40,7 @@ class Player {
   strafeLeft() {
     const angle = this.position.direction + this.HALF_PI;
     const x = this.position.x + Math.cos(angle) * this.linearVelocity;
-    const y = this.position.y - Math.sin(angle) * this.linearVelocity;
+    const y = this.position.y + Math.sin(angle) * this.linearVelocity;
 
     if (this.level.isEmpty(x, y)) Object.assign(this.position, { x, y });
     else if (this.level.isEmpty(x, this.position.y)) Object.assign(this.position, { x });
@@ -50,7 +50,7 @@ class Player {
   strafeRight() {
     const angle = this.position.direction - this.HALF_PI;
     const x = this.position.x + Math.cos(angle) * this.linearVelocity;
-    const y = this.position.y - Math.sin(angle) * this.linearVelocity;
+    const y = this.position.y + Math.sin(angle) * this.linearVelocity;
 
     if (this.level.isEmpty(x, y)) Object.assign(this.position, { x, y });
     else if (this.level.isEmpty(x, this.position.y)) Object.assign(this.position, { x });

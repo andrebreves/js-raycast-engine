@@ -46,7 +46,7 @@ class MapView {
     this.context.save();
 
     this.context.translate(this.player.position.x * this.scale, this.player.position.y * this.scale);
-    this.context.rotate(-this.player.position.direction);
+    this.context.rotate(this.player.position.direction);
 
     this.context.strokeStyle = 'red';
     this.context.lineWidth = 2;

@@ -110,7 +110,7 @@ class Engine {
     info += `/Frame: ${this.frame}`;
     info += `/X: ${this.player.position.x.toFixed(2)}`;
     info += `/Y: ${this.player.position.y.toFixed(2)}`;
-    info += `/D: ${(this.player.position.direction * 180 / Math.PI).toFixed(1)}`;
+    info += `/D: ${(this.player.position.direction * 180 / Math.PI).toFixed(1)}\u00B0`;
     context.fillText(info, 10, 20);
   }
 

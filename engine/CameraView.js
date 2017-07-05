@@ -24,7 +24,7 @@ class CameraView {
       if (ray.hit) {
         const z = ray.distance * this.scale * Math.cos(this.camera.direction - angle);
         const height = Math.floor(this.canvas.height * this.scale / z);
-        this.renderRaySolidColor(ray, x, height);
+        this.renderRayShadedColor(ray, x, height);
       }
 
       angle -= angleIncrement;

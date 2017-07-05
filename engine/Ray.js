@@ -17,7 +17,7 @@ class Ray {
       wall = level.wallAt(x, y);
       if (wall) return new Ray(level, origin, direction, { x, y }, distance , wall, 0, raycb);
       x += xStep;
-      y -= yStep;
+      y += yStep;
     }
 
     return new Ray(level, origin, direction, { x, y }, distance - step, null, null, raycb);
@@ -51,23 +51,23 @@ class Ray {
     let x = cos < 0 ? Math.ceil(origin.x) + dx : Math.floor(origin.x) + dx;
 
     // Calcula a distância percorrida pelo raio até o momento (hipotenusa)
-    let distance = Math.abs((x - origin.x) / cos);
+    let distance = (x - origin.x) / cos;
 
     // Calcula a posição no eixo Y (tamanho cateto oposto)
-    let y = origin.y - (distance * sin);
+    let y = origin.y + (distance * sin);
 
-    const step = Math.abs(dx / cos);  // Deslocamento do raio (hipotenusa)
+    const step = dx / cos;  // Deslocamento do raio (hipotenusa)
     const dy = step * sin;  // Deslocamento no eixo Y (outro cateto)
 
     while (distance < range) {
       let wall = level.wallAt(x + offset, y);
       if (wall) return new Ray(level, origin, direction, { x, y }, distance, wall, y % 1);
       x += dx;
-      y -= dy;
+      y += dy;
       distance += step;
     }
 
-    return new Ray(level, origin, direction, { x: origin.x + cos * range, y: origin.y - sin * range }, range, null, null);
+    return new Ray(level, origin, direction, { x: origin.x + cos * range, y: origin.y + sin * range }, range, null, null);
   }
 
   static castY(level, origin, direction, range = 10) {
@@ -81,26 +81,26 @@ class Ray {
     const offset = dy / 10000;
 
     // Encontra o primeiro cruzamento do raio com uma linha horizontal
-    let y = sin < 0 ? Math.floor(origin.y) - dy : Math.ceil(origin.y) - dy;
+    let y = sin < 0 ? Math.ceil(origin.y) + dy : Math.floor(origin.y) + dy;
 
     // Calcula a distância percorrida pelo raio até o momento (hipotenusa)
-    let distance = Math.abs((y - origin.y) / sin);
+    let distance = (y - origin.y) / sin;
 
     // Calcula a posição no eixo X (cateto adjacente)
     let x = origin.x + (distance * cos);
 
-    const step = Math.abs(dy / sin);  // Deslocamento do raio (hipotenusa)
+    const step = dy / sin;  // Deslocamento do raio (hipotenusa)
     const dx = step * cos;  // Deslocamento no eixo X (outro cateto)
 
     while (distance < range) {
-      let wall = level.wallAt(x, y - offset);
+      let wall = level.wallAt(x, y + offset);
       if (wall) return new Ray(level, origin, direction, { x, y }, distance, wall, x % 1);
       x += dx;
-      y -= dy;
+      y += dy;
       distance += step;
     }
 
-    return new Ray(level, origin, direction, { x: origin.x + cos * range, y: origin.y - sin * range }, range, null, null);
+    return new Ray(level, origin, direction, { x: origin.x + cos * range, y: origin.y + sin * range }, range, null, null);
   }
 
 

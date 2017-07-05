@@ -50,7 +50,7 @@ class Level {
 
   wallAt(x, y) {
     if (y < 0 || y >= this.map.length) return null;
-    const row = this.map[Math.floor(y)];
+    const row = this.map[this.map.length - 1 - Math.floor(y)];
 
     if (!row || x < 0 || x >= row.length) return null;
     return this.walls[row.charAt(Math.floor(x))] || null;
@@ -58,7 +58,7 @@ class Level {
 
   isEmpty(x, y) {
     if (y < 0 || y >= this.map.length) return false;
-    const row = this.map[Math.floor(y)];
+    const row = this.map[this.map.length - 1 - Math.floor(y)];
 
     if (!row || x < 0 || x >= row.length) return false;
     return row.charAt(Math.floor(x)) === '.';
