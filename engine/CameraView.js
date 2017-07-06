@@ -7,7 +7,7 @@ class CameraView {
     this.camera = camera;
 
     this.scale = 20;
-    this.maxDistance = 10;
+    this.maxDistance = 15;
     this.forEachRay = null;
   }
 

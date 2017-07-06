@@ -1,6 +1,6 @@
 class Player {
 
-  constructor(level, x = 0, y = 0, direction = 0) {
+  constructor(level, x = 2, y = 2, direction = 0) {
     this.level = level;
     this.linearVelocity = 0.05;
     this.angularVelocity = Math.PI / 48;

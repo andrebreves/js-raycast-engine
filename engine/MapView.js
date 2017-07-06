@@ -29,8 +29,12 @@ class MapView {
         const wall = this.level.wallAt(x, y);
 
         if (wall) {
-          this.context.fillStyle = wall.color;
-          this.context.fillRect(x, y, 1, 1);
+          if (wall.texture) {
+            this.context.drawImage(wall.texture, x, y, 1, 1);
+          } else {
+            this.context.fillStyle = wall.color;
+            this.context.fillRect(x, y, 1, 1);
+          }
         } else {
           this.context.strokeStyle = 'white';
           this.context.strokeRect(x, y, 1, 1);
