@@ -1,26 +1,29 @@
 class Ray {
 
   static cast(level, origin, direction, range = 10, raycb = null) {
-    // return Ray.naiveCast(level, origin, direction, range, 0.01, raycb);
-    return Ray.fastCast(level, origin, direction, range, raycb);
+    // const ray = Ray.naiveCast(level, origin, direction, range);
+    const ray = Ray.fastCast(level, origin, direction, range);
+    if (raycb) raycb(ray);
+    return ray;
   }
 
-  static naiveCast(level, origin, direction, range = 10, step = 0.1, raycb = null) {
-    const xStep = Math.cos(direction) * step;
-    const yStep = Math.sin(direction) * step;
+  static naiveCast(level, origin, direction, range = 10, step = 0.1) {
+    const dx = Math.cos(direction) * step;
+    const dy = Math.sin(direction) * step;
 
-    let wall, distance;
+    let hit, distance;
     let x = origin.x;
     let y = origin.y;
 
     for (distance = 0; distance < range; distance += step) {
-      wall = level.wallAt(x, y);
-      if (wall) return new Ray(level, origin, direction, { x, y }, distance , wall, 0, raycb);
-      x += xStep;
-      y += yStep;
+      hit = level.wallAt(x, y);
+      if (hit) return { level, origin, direction, end: { x, y }, distance, hit };
+      x += dx;
+      y += dy;
     }
 
-    return new Ray(level, origin, direction, { x, y }, distance - step, null, null, raycb);
+    distance -= step;
+    return { level, origin, direction, end: { x, y }, distance };
   }
 
 
@@ -60,62 +63,56 @@ class Ray {
     const dy = step * sin;  // Deslocamento no eixo Y (outro cateto)
 
     while (distance < range) {
-      let wall = level.wallAt(x + offset, y);
-      if (wall) return new Ray(level, origin, direction, { x, y }, distance, wall, y % 1);
+      let hit = level.wallAt(x + offset, y);
+      if (hit) return { level, origin, direction, end: { x, y }, distance, hit, offset: y % 1, vertical: true }
       x += dx;
       y += dy;
       distance += step;
     }
 
-    return new Ray(level, origin, direction, { x: origin.x + cos * range, y: origin.y + sin * range }, range, null, null);
+    // O raio não interceptou nenhuma parede
+    x = origin.x + cos * range;
+    y = origin.y + sin * range;
+    distance = range;
+
+    return { level, origin, end: { x, y }, direction, distance };
   }
 
   static castY(level, origin, direction, range = 10) {
     const cos = Math.cos(direction);
     const sin = Math.sin(direction);
 
-    // O eixo Y cresce para baixo, de maneira inversa ao plano cartesiano normal
-
-    // Define se o raio vai andar para cima ou para baixo
+    // Define se o raio vai andar para a esquerda ou para direita
     const dy = sin < 0 ? -1 : +1;
     const offset = dy / 10000;
 
-    // Encontra o primeiro cruzamento do raio com uma linha horizontal
+    // Encontra o primeiro cruzamento do raio com uma linha vertical
     let y = sin < 0 ? Math.ceil(origin.y) + dy : Math.floor(origin.y) + dy;
 
     // Calcula a distância percorrida pelo raio até o momento (hipotenusa)
     let distance = (y - origin.y) / sin;
 
-    // Calcula a posição no eixo X (cateto adjacente)
+    // Calcula a posição no eixo Y (tamanho cateto oposto)
     let x = origin.x + (distance * cos);
 
     const step = dy / sin;  // Deslocamento do raio (hipotenusa)
-    const dx = step * cos;  // Deslocamento no eixo X (outro cateto)
+    const dx = step * cos;  // Deslocamento no eixo Y (outro cateto)
 
     while (distance < range) {
-      let wall = level.wallAt(x, y + offset);
-      if (wall) return new Ray(level, origin, direction, { x, y }, distance, wall, x % 1);
+      let hit = level.wallAt(x, y + offset);
+      if (hit) return { level, origin, direction, end: { x, y }, distance, hit, offset: x % 1, horizontal: true };
       x += dx;
       y += dy;
       distance += step;
     }
 
-    return new Ray(level, origin, direction, { x: origin.x + cos * range, y: origin.y + sin * range }, range, null, null);
+    // O raio não interceptou nenhuma parede
+    x = origin.x + cos * range;
+    y = origin.y + sin * range;
+    distance = range;
+
+    return { level, origin, end: { x, y }, direction, distance };
   }
-
-
-  constructor(level, origin, direction, end, distance, hit, offset, raycb = null) {
-    this.level = level;
-    this.origin = origin;
-    this.direction = direction;
-    this.end = end;
-    this.distance = distance;
-    this.hit = hit;
-    this.offset = offset;
-
-    if (raycb) raycb(this);
-  }
-
 
 
 }

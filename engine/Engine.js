@@ -30,19 +30,6 @@ class Engine {
     element = document.getElementById('debug')
     this.debug = element.checked || false;
     if (element) element.addEventListener('change', event => this.debug = event.target.checked);
-
-    element = document.getElementById('fog')
-    this.camera.fog = element.checked;
-    element.addEventListener('change', event => this.camera.fog = event.target.checked);
-
-    element = document.getElementById('maxDistance');
-    this.camera.maxDistance = element.value;
-    element.addEventListener('input', event => this.camera.maxDistance = Math.floor(event.target.value));
-
-    element = document.getElementById('fov');
-    this.camera.fov = element.value;
-    element.addEventListener('input', event => this.camera.fov = event.target.value);
-
   }
 
 
@@ -84,9 +71,7 @@ class Engine {
     this.mapView.render(frame);
 
     this.camera.setPosition(this.player.position.x, this.player.position.y, this.player.position.direction);
-    // this.camera.showRays = this.debug;
-    //this.camera.render(frame, this.view, this.canvas);
-    // this.cameraView.forEachRay = ray => this.mapView.renderRay(frame, ray);
+    // this.cameraView.forEachRay = this.debug ? ray => this.mapView.renderRay(frame, ray) : null;
     this.cameraView.render(frame);
   }
 

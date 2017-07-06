@@ -42,9 +42,9 @@ class Level {
     this.height = this.map.length;
 
     this.walls = {
-      0: new Wall('red'),
-      1: new Wall('green'),
-      2: new Wall('blue'),
+      0: new Wall('red', 'assets/wall0.jpg', 626, 626),
+      1: new Wall('green', 'assets/wall1.jpg', 626, 626),
+      2: new Wall('blue', 'assets/wall2.jpg', 626, 626),
     }
   }
 

@@ -24,39 +24,22 @@ class CameraView {
       if (ray.hit) {
         const z = ray.distance * this.scale * Math.cos(this.camera.direction - angle);
         const height = Math.floor(this.canvas.height * this.scale / z);
-        this.renderRayShadedColor(ray, x, height);
+        this.renderRayTextured(ray, x, height);
       }
 
       angle -= angleIncrement;
     }
   }
 
-  renderRayTest(ray, x, height) {
-
-    this.context.fillStyle = ray.hit.color;
-    if (ray.origin.y > ray.end.y) this.context.fillStyle = 'purple';
-
-    const y = (this.canvas.height - height) / 2;
-    this.context.fillRect(x, y, 1, height);
-  }
-
   renderRaySolidColor(ray, x, height) {
-    const fracX = ray.end.x % 1;
-    const fracY = ray.end.y % 1;
-    let dark = fracX < 0.01 || fracX > 1 - 0.01;
-
-    this.context.fillStyle = (dark ? 'dark' : '') + ray.hit.color;
+    this.context.fillStyle = (ray.vertical ? 'dark' : '') + ray.hit.color;
 
     const y = (this.canvas.height - height) / 2;
     this.context.fillRect(x, y, 1, height);
   }
 
   renderRayShadedColor(ray, x, height) {
-    const fracX = ray.end.x % 1;
-    const fracY = ray.end.y % 1;
-    let dark = fracX < 0.01 || fracX > 1 - 0.01;
-
-    this.context.fillStyle = (dark ? 'dark' : '') + ray.hit.color;
+    this.context.fillStyle = (ray.vertical ? 'dark' : '') + ray.hit.color;
 
     const y = (this.canvas.height - height) / 2;
     this.context.fillRect(x, y, 1, height);
@@ -66,9 +49,22 @@ class CameraView {
   }
 
   renderRayTextured(ray, x, height) {
-    const fracX = ray.end.x % 1;
-    const fracY = ray.end.y % 1;
+    const y = (this.canvas.height - height) / 2;
 
+    if (ray.hit.texture) {
+      this.context.drawImage(ray.hit.texture, ray.hit.texture.width * ray.offset, 0, 1, ray.hit.texture.height, x, y, 1, height);
+    } else {
+      this.context.fillStyle = ray.hit.color;
+      this.context.fillRect(x, y, 1, height);
+    }
+
+    if (ray.vertical) {
+      this.context.fillStyle = `rgba(0, 0, 0, 0.5)`;
+      this.context.fillRect(x, y, 1, height);
+    }
+
+    this.context.fillStyle = `rgba(0, 0, 0, ${ray.distance / this.maxDistance})`;
+    this.context.fillRect(x, y, 1, height);
   }
 
 }
