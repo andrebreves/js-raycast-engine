@@ -3,10 +3,10 @@ class Wall {
   // color
   // texture
 
-  constructor(color, texture = null, width = 0, height = 0) {
+  constructor(color, texture = null) {
     this.color = color;
     if (texture) {
-      this.texture = new Image(width, height);
+      this.texture = new Image();
       this.texture.src = texture;
     }
   }

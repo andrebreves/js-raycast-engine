@@ -7,13 +7,18 @@ class CameraView {
     this.camera = camera;
 
     this.scale = 20;
-    this.maxDistance = 15;
+    this.maxDistance = 30;
     this.forEachRay = null;
   }
 
   render(frame) {
-    this.context.fillStyle = 'black';
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    // this.context.fillStyle = 'black';
+    // this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    this.context.fillStyle = '#333333';
+    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height / 2);
+    this.context.fillStyle = '#AAAAAA';
+    this.context.fillRect(0, this.canvas.height / 2, this.canvas.width, this.canvas.height / 2);
 
     let angle = this.camera.direction + this.camera.fieldOfView / 2;
     const angleIncrement = this.camera.fieldOfView / this.canvas.width;
@@ -52,7 +57,10 @@ class CameraView {
     const y = (this.canvas.height - height) / 2;
 
     if (ray.hit.texture) {
-      this.context.drawImage(ray.hit.texture, ray.hit.texture.width * ray.offset, 0, 1, ray.hit.texture.height, x, y, 1, height);
+      this.context.drawImage(
+        ray.hit.texture,
+        Math.floor(ray.hit.texture.naturalWidth * ray.offset), 0, 1, ray.hit.texture.naturalHeight,
+        x, y, 1, height);
     } else {
       this.context.fillStyle = ray.hit.color;
       this.context.fillRect(x, y, 1, height);
@@ -60,11 +68,11 @@ class CameraView {
 
     if (ray.vertical) {
       this.context.fillStyle = `rgba(0, 0, 0, 0.5)`;
-      this.context.fillRect(x, y, 1, height);
+      this.context.fillRect(x, Math.floor(y), 1, height + 1);
     }
 
-    this.context.fillStyle = `rgba(0, 0, 0, ${ray.distance / this.maxDistance})`;
-    this.context.fillRect(x, y, 1, height);
+    // this.context.fillStyle = `rgba(0, 0, 0, ${ray.distance / this.maxDistance})`;
+    // this.context.fillRect(x, Math.floor(y), 1, height + 1);
   }
 
 }

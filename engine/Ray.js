@@ -64,7 +64,7 @@ class Ray {
 
     while (distance < range) {
       let hit = level.wallAt(x + offset, y);
-      if (hit) return { level, origin, direction, end: { x, y }, distance, hit, offset: y % 1, vertical: true }
+      if (hit) return { level, origin, direction, end: { x, y }, distance, hit, offset: cos < 0 ? y % 1 : 1 - (y % 1), vertical: true }
       x += dx;
       y += dy;
       distance += step;
@@ -100,7 +100,7 @@ class Ray {
 
     while (distance < range) {
       let hit = level.wallAt(x, y + offset);
-      if (hit) return { level, origin, direction, end: { x, y }, distance, hit, offset: x % 1, horizontal: true };
+      if (hit) return { level, origin, direction, end: { x, y }, distance, hit, offset: sin > 0 ? x % 1 : 1 - (x % 1), horizontal: true };
       x += dx;
       y += dy;
       distance += step;
