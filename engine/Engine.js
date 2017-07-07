@@ -27,9 +27,17 @@ class Engine {
 
     let element;
 
+    element = document.getElementById('fog')
+    this.cameraView.setFog(element.checked || false);
+    if (element) element.addEventListener('change', event => this.cameraView.setFog(event.target.checked));
+
     element = document.getElementById('debug')
     this.debug = element.checked || false;
     if (element) element.addEventListener('change', event => this.debug = event.target.checked);
+
+    element = document.getElementById('rays')
+    this.rays = element.checked || false;
+    if (element) element.addEventListener('change', event => this.rays = event.target.checked);
   }
 
 
@@ -71,7 +79,7 @@ class Engine {
     this.mapView.render(frame);
 
     this.camera.setPosition(this.player.position.x, this.player.position.y, this.player.position.direction);
-    // this.cameraView.forEachRay = this.debug ? ray => this.mapView.renderRay(frame, ray) : null;
+    this.cameraView.forEachRay = this.rays ? ray => this.mapView.renderRay(frame, ray) : null;
     this.cameraView.render(frame);
   }
 

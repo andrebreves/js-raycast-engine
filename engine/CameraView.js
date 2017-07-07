@@ -6,19 +6,43 @@ class CameraView {
     this.level = level;
     this.camera = camera;
 
-    this.scale = 20;
-    this.maxDistance = 30;
     this.forEachRay = null;
+    this.maxDistance = 25;
+    this.renderBackground();
+  }
+
+  renderBackground() {
+    const background = document.createElement('canvas');
+    // background.width = this.canvas.width;
+    background.width = 1;
+    background.height = this.canvas.height;
+
+    const context = background.getContext('2d');
+    context.fillStyle = '#373737';
+    context.fillRect(0, 0, background.width, background.height);
+    context.fillStyle = '#686868';
+    context.fillRect(0, background.height / 2, background.width, background.height / 2);
+
+    if (this.fog) {
+      const height = Math.floor(background.height / this.maxDistance);
+      for (let y = 0; y < background.height / 2; y++) {
+        context.fillStyle = `rgba(0, 0, 0, ${y / ((background.height - height) / 2)})`;
+        context.fillRect(0, y, background.width, 1);
+        context.fillRect(0, background.height - 1 - y, background.width, 1);
+      }
+    }
+
+    this.background = new Image();
+    this.background.src = background.toDataURL();
+  }
+
+  setFog(fog) {
+    this.fog = fog;
+    this.renderBackground();
   }
 
   render(frame) {
-    // this.context.fillStyle = 'black';
-    // this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-    this.context.fillStyle = '#333333';
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.height / 2);
-    this.context.fillStyle = '#AAAAAA';
-    this.context.fillRect(0, this.canvas.height / 2, this.canvas.width, this.canvas.height / 2);
+    this.context.drawImage(this.background, 0, 0, this.canvas.width, this.canvas.height);
 
     let angle = this.camera.direction + this.camera.fieldOfView / 2;
     const angleIncrement = this.camera.fieldOfView / this.canvas.width;
@@ -27,8 +51,7 @@ class CameraView {
       let ray = Ray.cast(this.level, { x: this.camera.x, y: this.camera.y }, angle, this.maxDistance, this.forEachRay);
 
       if (ray.hit) {
-        const z = ray.distance * this.scale * Math.cos(this.camera.direction - angle);
-        const height = Math.floor(this.canvas.height * this.scale / z);
+        const height = Math.floor(this.canvas.height / (ray.distance * Math.cos(this.camera.direction - angle)));
         this.renderRayTextured(ray, x, height);
       }
 
@@ -71,8 +94,10 @@ class CameraView {
       this.context.fillRect(x, Math.floor(y), 1, height + 1);
     }
 
-    // this.context.fillStyle = `rgba(0, 0, 0, ${ray.distance / this.maxDistance})`;
-    // this.context.fillRect(x, Math.floor(y), 1, height + 1);
+    if (this.fog) {
+      this.context.fillStyle = `rgba(0, 0, 0, ${ray.distance / this.maxDistance})`;
+      this.context.fillRect(x, Math.floor(y), 1, height + 1);
+    }
   }
 
 }
