@@ -1,36 +1,41 @@
 * [Preview](http://htmlpreview.github.io/?https://github.com/andrebreves/js-raycast-engine/blob/master/engine/index.html)
 * [Tela cheia](http://htmlpreview.github.io/?https://github.com/andrebreves/js-raycast-engine/blob/master/engine/full-screen.html)
 
-* Parte 01 - Mapa 2D
-  - Anatomia de uma game engine
-  - Definir o Mapa como uma matriz de strings
-  - Renderizar o mapa de cima como um grid
-  - Definir o Jogador como posição e ângulo
-  - Mostrar o jogador no mapa como uma seta
-  - Movimentar o jogador usando o teclado
-  - Detectar colisão do jogador contra as paredes (slide along wall)
+* Parte 1 - Mapa 2D
+  - Nível definido como uma matriz de strings
+  - Mapa 2D visto de cima
+  - Jogador como uma seta
+  - Movimentação usando o teclado
+  - Detectar colisão
 
-* Parte 02 - Visão 3D
+* Parte 2 - Visão 3D
   - Segundo canvas para visão de primeira pessoa
-  - Renderizar as paredes sem textura
-  - Explicar e corrigir distorção
+  - Informações de Debug na tela
+  - Algoritmo naive
+  - Paredes sem textura
+
+* Parte 3 - Melhoria no algoritmo
+  - Melhoria no algoritmo
+  - Corrigir distorção de lente
   - Implementar paredes de cores diferentes
   - Distance fog
+  - Backgound
+
+* Parte 4 - Textura e som
+  - Parede com Textura
+  - Visão 3D Fullscreen e mapa no canto
+  - Música de fundo e som de passos
 
 * Futuro
-  - Paredes com textura
-  - Tornar janela full screen
   - Mouse look
-  - Edição do mapa com o mouse
-  - Salvar e carregar mapas
+  - Edição simples do mapa com o mouse
   - Skybox
-  - Performance (algoritmo mais inteligente)
-  - Sprites
+  - Desenhar a mão e movimentar quando andando
+  - Implementar inimigos
   - Armas
-  - Inimigos
-  - Portas
-  - Paredes móveis (áreas secretas)
+  - Parede móvel (áreas secretas)
+  - Sprites
   - Olhar pra cima e pra baixo
-  - Efeitos especiais (chuva, relâmpago, ...)
   - Chão e teto texturizado
-  - Som
+  - Altura diferente pra chão e teto
+  - Salvar e carregar mapas
