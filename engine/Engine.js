@@ -18,7 +18,8 @@ class Engine {
     this.canvas = document.getElementById('map');
     this.view = document.getElementById('view');
     this.level = new Level();
-    this.player = new Player(this.level);
+    this.sound = new Sound();
+    this.player = new Player(this.level, this.sound);
     this.control = new Input();
     this.camera = new Camera(this.level);
 
@@ -46,6 +47,8 @@ class Engine {
     this.elapsedTime = 0;
     this.lastTimestamp = performance.now();
     this.frameInterval = 1000 / framesPerSecond;
+
+    this.sound.playMusic();
 
     window.requestAnimationFrame(t => this.gameLoop(t));
   }

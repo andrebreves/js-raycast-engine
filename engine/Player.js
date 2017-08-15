@@ -1,12 +1,26 @@
 class Player {
 
-  constructor(level, x = 2, y = 2, direction = 0) {
+  constructor(level, sound, x = 2, y = 2, direction = 0) {
     this.level = level;
+    this.sound = sound;
+    this.walking = false;
     this.linearVelocity = 0.05;
     this.angularVelocity = Math.PI / 48;
     this.CIRCLE = 2 * Math.PI;
     this.HALF_PI = Math.PI / 2;
     this.position = { x, y, direction };
+  }
+
+  setWalking(state) {
+    if (state && !this.walking) {
+      this.walking = true;
+      this.sound.playFootsteps();
+    }
+
+    if (!state && this.walking) {
+      this.walking = false;
+      this.sound.stopFootsteps();
+    }
   }
 
   moveForward() {

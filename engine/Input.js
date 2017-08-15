@@ -32,6 +32,13 @@ class Input {
     if (state.backward && !state.forward) player.moveBackward();
     if (state.strafeLeft && !state.strafeRight) player.strafeLeft();
     if (state.strafeRight && !state.strafeLeft) player.strafeRight();
+
+    if ((state.forward && !state.backward) || (state.backward && !state.forward) ||
+    (state.strafeLeft && !state.strafeRight) || (state.strafeRight && !state.strafeLeft)) {
+      player.setWalking(true);
+    } else {
+      player.setWalking(false);
+    }
   }
 
 }

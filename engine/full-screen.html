@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>js-raycast-engine</title>
+    <script src="Camera.js"></script>
+    <script src="CameraView.js"></script>
+    <script src="Engine.js"></script>
+    <script src="Input.js"></script>
+    <script src="Level.js"></script>
+    <script src="MapView.js"></script>
+    <script src="Player.js"></script>
+    <script src="Ray.js"></script>
+    <script src="Sound.js"></script>
+    <script src="Wall.js"></script>
+    <style>
+      .container {
+        position: relative;
+        background-color: green;
+      }
+
+      .container::after {
+        content: ' ';
+        display: block;
+        padding: 0 0 50%;
+      }
+
+      .wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+      }
+
+      #view {
+        width: 100%;
+        height: 100%;
+      }
+
+      #map {
+        opacity: 0.5;
+        position: absolute;
+        width: 20%;
+        height: 40%;
+        bottom: 0;
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body onload="Engine.start();" style="margin: 0; padding: 0; width: 100%; height: 100%;">
+    <div class="container">
+      <div class="wrapper">
+        <canvas id="view" width="800" height="600"></canvas>
+        <canvas id="map" width="400" height="400" style="transform: scale(1, -1);"></canvas>
+      </div>
+    </div>
+    <p align="center">
+      <input id="fog" type="checkbox" checked="true" style="display: none;" />
+      <input id="debug" type="checkbox" checked="true" style="display: none;" />
+      <input id="rays" type="checkbox" style="display: none;" />
+    </p>
+
+  </body>
+
+</html>
