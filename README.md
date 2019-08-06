@@ -1,5 +1,5 @@
-* [Preview](http://htmlpreview.github.io/?https://github.com/andrebreves/js-raycast-engine/blob/master/engine/index.html)
-* [Tela cheia](http://htmlpreview.github.io/?https://github.com/andrebreves/js-raycast-engine/blob/master/engine/full-screen.html)
+* [Preview](https://andrebreves.github.io/js-raycast-engine/engine/)
+* [Tela cheia](https://andrebreves.github.io/js-raycast-engine/engine/full-screen.html)
 
 * Parte 1 - Mapa 2D
   - Nível definido como uma matriz de strings
